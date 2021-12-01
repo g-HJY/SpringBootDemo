@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.demo.dao.TCustomerDao">
+
+    <resultMap type="com.example.demo.entity.TCustomer" id="TCustomerMap">
+        <result property="fcustomerid" column="FCUSTOMERID" jdbcType="VARCHAR"/>
+        <result property="fdepartmentid" column="FDEPARTMENTID" jdbcType="INTEGER"/>
+        <result property="fcustomername" column="FCUSTOMERNAME" jdbcType="VARCHAR"/>
+        <result property="fpassword" column="FPASSWORD" jdbcType="VARCHAR"/>
+        <result property="fphonenum" column="FPHONENUM" jdbcType="VARCHAR"/>
+        <result property="fidcard" column="FIDCARD" jdbcType="VARCHAR"/>
+        <result property="fgender" column="FGENDER" jdbcType="VARCHAR"/>
+        <result property="fheadfile" column="FHEADFILE" jdbcType="VARCHAR"/>
+        <result property="fisdelete" column="FISDELETE" jdbcType="VARCHAR"/>
+        <result property="fcreatetime" column="FCREATETIME" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="TCustomerMap">
+        select
+          FCUSTOMERID, FDEPARTMENTID, FCUSTOMERNAME, FPASSWORD, FPHONENUM, FIDCARD, FGENDER, FHEADFILE, FISDELETE, FCREATETIME
+        from t_customer
+        where FCUSTOMERID = #{fcustomerid}
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="TCustomerMap">
+        select
+          FCUSTOMERID, FDEPARTMENTID, FCUSTOMERNAME, FPASSWORD, FPHONENUM, FIDCARD, FGENDER, FHEADFILE, FISDELETE, FCREATETIME
+        from t_customer
+        <where>
+            <if test="fcustomerid != null and fcustomerid != ''">
+                and FCUSTOMERID = #{fcustomerid}
+            </if>
+            <if test="fdepartmentid != null">
+                and FDEPARTMENTID = #{fdepartmentid}
+            </if>
+            <if test="fcustomername != null and fcustomername != ''">
+                and FCUSTOMERNAME = #{fcustomername}
+            </if>
+            <if test="fpassword != null and fpassword != ''">
+                and FPASSWORD = #{fpassword}
+            </if>
+            <if test="fphonenum != null and fphonenum != ''">
+                and FPHONENUM = #{fphonenum}
+            </if>
+            <if test="fidcard != null and fidcard != ''">
+                and FIDCARD = #{fidcard}
+            </if>
+            <if test="fgender != null and fgender != ''">
+                and FGENDER = #{fgender}
+            </if>
+            <if test="fheadfile != null and fheadfile != ''">
+                and FHEADFILE = #{fheadfile}
+            </if>
+            <if test="fisdelete != null and fisdelete != ''">
+                and FISDELETE = #{fisdelete}
+            </if>
+            <if test="fcreatetime != null and fcreatetime != ''">
+                and FCREATETIME = #{fcreatetime}
+            </if>
+        </where>
+        limit #{pageable.offset}, #{pageable.pageSize}
+    </select>
+
+    <!--统计总行数-->
+    <select id="count" resultType="java.lang.Long">
+        select count(1)
+        from t_customer
+        <where>
+            <if test="fcustomerid != null and fcustomerid != ''">
+                and FCUSTOMERID = #{fcustomerid}
+            </if>
+            <if test="fdepartmentid != null">
+                and FDEPARTMENTID = #{fdepartmentid}
+            </if>
+            <if test="fcustomername != null and fcustomername != ''">
+                and FCUSTOMERNAME = #{fcustomername}
+            </if>
+            <if test="fpassword != null and fpassword != ''">
+                and FPASSWORD = #{fpassword}
+            </if>
+            <if test="fphonenum != null and fphonenum != ''">
+                and FPHONENUM = #{fphonenum}
+            </if>
+            <if test="fidcard != null and fidcard != ''">
+                and FIDCARD = #{fidcard}
+            </if>
+            <if test="fgender != null and fgender != ''">
+                and FGENDER = #{fgender}
+            </if>
+            <if test="fheadfile != null and fheadfile != ''">
+                and FHEADFILE = #{fheadfile}
+            </if>
+            <if test="fisdelete != null and fisdelete != ''">
+                and FISDELETE = #{fisdelete}
+            </if>
+            <if test="fcreatetime != null and fcreatetime != ''">
+                and FCREATETIME = #{fcreatetime}
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="fcustomerid" useGeneratedKeys="true">
+        insert into t_customer(FDEPARTMENTID, FCUSTOMERNAME, FPASSWORD, FPHONENUM, FIDCARD, FGENDER, FHEADFILE, FISDELETE, FCREATETIME)
+        values (#{fdepartmentid}, #{fcustomername}, #{fpassword}, #{fphonenum}, #{fidcard}, #{fgender}, #{fheadfile}, #{fisdelete}, #{fcreatetime})
+    </insert>
+
+    <insert id="insertBatch" keyProperty="fcustomerid" useGeneratedKeys="true">
+        insert into t_customer(FDEPARTMENTID, FCUSTOMERNAME, FPASSWORD, FPHONENUM, FIDCARD, FGENDER, FHEADFILE, FISDELETE, FCREATETIME)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+        (#{entity.fdepartmentid}, #{entity.fcustomername}, #{entity.fpassword}, #{entity.fphonenum}, #{entity.fidcard}, #{entity.fgender}, #{entity.fheadfile}, #{entity.fisdelete}, #{entity.fcreatetime})
+        </foreach>
+    </insert>
+
+    <insert id="insertOrUpdateBatch" keyProperty="fcustomerid" useGeneratedKeys="true">
+        insert into t_customer(FDEPARTMENTID, FCUSTOMERNAME, FPASSWORD, FPHONENUM, FIDCARD, FGENDER, FHEADFILE, FISDELETE, FCREATETIME)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.fdepartmentid}, #{entity.fcustomername}, #{entity.fpassword}, #{entity.fphonenum}, #{entity.fidcard}, #{entity.fgender}, #{entity.fheadfile}, #{entity.fisdelete}, #{entity.fcreatetime})
+        </foreach>
+        on duplicate key update
+        FDEPARTMENTID = values(FDEPARTMENTID),
+        FCUSTOMERNAME = values(FCUSTOMERNAME),
+        FPASSWORD = values(FPASSWORD),
+        FPHONENUM = values(FPHONENUM),
+        FIDCARD = values(FIDCARD),
+        FGENDER = values(FGENDER),
+        FHEADFILE = values(FHEADFILE),
+        FISDELETE = values(FISDELETE),
+        FCREATETIME = values(FCREATETIME)
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update t_customer
+        <set>
+            <if test="fdepartmentid != null">
+                FDEPARTMENTID = #{fdepartmentid},
+            </if>
+            <if test="fcustomername != null and fcustomername != ''">
+                FCUSTOMERNAME = #{fcustomername},
+            </if>
+            <if test="fpassword != null and fpassword != ''">
+                FPASSWORD = #{fpassword},
+            </if>
+            <if test="fphonenum != null and fphonenum != ''">
+                FPHONENUM = #{fphonenum},
+            </if>
+            <if test="fidcard != null and fidcard != ''">
+                FIDCARD = #{fidcard},
+            </if>
+            <if test="fgender != null and fgender != ''">
+                FGENDER = #{fgender},
+            </if>
+            <if test="fheadfile != null and fheadfile != ''">
+                FHEADFILE = #{fheadfile},
+            </if>
+            <if test="fisdelete != null and fisdelete != ''">
+                FISDELETE = #{fisdelete},
+            </if>
+            <if test="fcreatetime != null and fcreatetime != ''">
+                FCREATETIME = #{fcreatetime},
+            </if>
+        </set>
+        where FCUSTOMERID = #{fcustomerid}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete from t_customer where FCUSTOMERID = #{fcustomerid}
+    </delete>
+
+</mapper>
+
