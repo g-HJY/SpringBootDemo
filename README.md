@@ -14,7 +14,7 @@ SpringBoot2.x demo for study
 
 3.Mysql
 
-并修改相关配置成你自己的
+安装完成后启动，并在Demo中修改相关配置成你自己的
 
 插件：
 
