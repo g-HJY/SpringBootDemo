@@ -1,9 +1,8 @@
 package com.example.demo.service.impl;
 
-import com.example.demo.dao.TCustomerDao;
-import com.example.demo.entity.TCustomer;
+import com.example.demo.dao.test.TCustomerDao;
+import com.example.demo.entity.test.Customer;
 import com.example.demo.service.TCustomerService;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
@@ -34,8 +33,8 @@ public class TCustomerServiceImpl implements TCustomerService {
      *         key：指定方法执行返回值的key，该属性是Spring用的，不写也有默认值
      *         value:表示存入redis数据库的key
      */
-    @Cacheable(value="findCustomerId", key="'account.findCustomerId'")
-    public TCustomer queryById(String fcustomerid) {
+    //@Cacheable(value="findCustomerId", key="'account.findCustomerId'")
+    public Customer queryById(String fcustomerid) {
         return this.tCustomerDao.queryById(fcustomerid);
     }
 
@@ -47,7 +46,7 @@ public class TCustomerServiceImpl implements TCustomerService {
      * @return 查询结果
      */
     @Override
-    public Page<TCustomer> queryByPage(TCustomer tCustomer, PageRequest pageRequest) {
+    public Page<Customer> queryByPage(Customer tCustomer, PageRequest pageRequest) {
         long total = this.tCustomerDao.count(tCustomer);
         return new PageImpl<>(this.tCustomerDao.queryAllByLimit(tCustomer, pageRequest), pageRequest, total);
     }
@@ -59,7 +58,7 @@ public class TCustomerServiceImpl implements TCustomerService {
      * @return 实例对象
      */
     @Override
-    public TCustomer insert(TCustomer tCustomer) {
+    public Customer insert(Customer tCustomer) {
         this.tCustomerDao.insert(tCustomer);
         return tCustomer;
     }
@@ -71,7 +70,7 @@ public class TCustomerServiceImpl implements TCustomerService {
      * @return 实例对象
      */
     @Override
-    public TCustomer update(TCustomer tCustomer) {
+    public Customer update(Customer tCustomer) {
         this.tCustomerDao.update(tCustomer);
         return this.queryById(tCustomer.getFcustomerid());
     }

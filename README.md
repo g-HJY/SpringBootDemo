@@ -1,5 +1,4 @@
 # SpringBootDemo
-SpringBoot2.x demo for study
 
 #### SpringBoot2.x 整合Mybatis,Redis,RabbitMQ,Thymeleaf等实现简单案例
 

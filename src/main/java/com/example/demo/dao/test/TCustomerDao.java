@@ -1,6 +1,6 @@
-package com.example.demo.dao;
+package com.example.demo.dao.test;
 
-import com.example.demo.entity.TCustomer;
+import com.example.demo.entity.test.Customer;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.data.domain.Pageable;
 
@@ -20,7 +20,7 @@ public interface TCustomerDao {
      * @param fcustomerid 主键
      * @return 实例对象
      */
-    TCustomer queryById(String fcustomerid);
+    Customer queryById(String fcustomerid);
 
     /**
      * 查询指定行数据
@@ -29,7 +29,7 @@ public interface TCustomerDao {
      * @param pageable         分页对象
      * @return 对象列表
      */
-    List<TCustomer> queryAllByLimit(TCustomer tCustomer, @Param("pageable") Pageable pageable);
+    List<Customer> queryAllByLimit(Customer tCustomer, @Param("pageable") Pageable pageable);
 
     /**
      * 统计总行数
@@ -37,7 +37,7 @@ public interface TCustomerDao {
      * @param tCustomer 查询条件
      * @return 总行数
      */
-    long count(TCustomer tCustomer);
+    long count(Customer tCustomer);
 
     /**
      * 新增数据
@@ -45,7 +45,7 @@ public interface TCustomerDao {
      * @param tCustomer 实例对象
      * @return 影响行数
      */
-    int insert(TCustomer tCustomer);
+    int insert(Customer tCustomer);
 
     /**
      * 批量新增数据（MyBatis原生foreach方法）
@@ -53,7 +53,7 @@ public interface TCustomerDao {
      * @param entities List<TCustomer> 实例对象列表
      * @return 影响行数
      */
-    int insertBatch(@Param("entities") List<TCustomer> entities);
+    int insertBatch(@Param("entities") List<Customer> entities);
 
     /**
      * 批量新增或按主键更新数据（MyBatis原生foreach方法）
@@ -62,7 +62,7 @@ public interface TCustomerDao {
      * @return 影响行数
      * @throws org.springframework.jdbc.BadSqlGrammarException 入参是空List的时候会抛SQL语句错误的异常，请自行校验入参
      */
-    int insertOrUpdateBatch(@Param("entities") List<TCustomer> entities);
+    int insertOrUpdateBatch(@Param("entities") List<Customer> entities);
 
     /**
      * 修改数据
@@ -70,7 +70,7 @@ public interface TCustomerDao {
      * @param tCustomer 实例对象
      * @return 影响行数
      */
-    int update(TCustomer tCustomer);
+    int update(Customer tCustomer);
 
     /**
      * 通过主键删除数据

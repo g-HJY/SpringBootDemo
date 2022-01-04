@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.demo.dao.test2.SalariesDao">
+
+    <resultMap type="com.example.demo.entity.test2.Salaries" id="SalariesMap">
+        <result property="id" column="id" jdbcType="INTEGER"/>
+        <result property="empNo" column="emp_no" jdbcType="INTEGER"/>
+        <result property="salary" column="salary" jdbcType="INTEGER"/>
+        <result property="fromDate" column="from_date" jdbcType="TIMESTAMP"/>
+        <result property="toDate" column="to_date" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="SalariesMap">
+        select
+          id, emp_no, salary, from_date, to_date
+        from salaries
+        where id = #{id}
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="SalariesMap">
+        select
+          id, emp_no, salary, from_date, to_date
+        from salaries
+        <where>
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="empNo != null">
+                and emp_no = #{empNo}
+            </if>
+            <if test="salary != null">
+                and salary = #{salary}
+            </if>
+            <if test="fromDate != null">
+                and from_date = #{fromDate}
+            </if>
+            <if test="toDate != null">
+                and to_date = #{toDate}
+            </if>
+        </where>
+        limit #{pageable.offset}, #{pageable.pageSize}
+    </select>
+
+    <!--统计总行数-->
+    <select id="count" resultType="java.lang.Long">
+        select count(1)
+        from salaries
+        <where>
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="empNo != null">
+                and emp_no = #{empNo}
+            </if>
+            <if test="salary != null">
+                and salary = #{salary}
+            </if>
+            <if test="fromDate != null">
+                and from_date = #{fromDate}
+            </if>
+            <if test="toDate != null">
+                and to_date = #{toDate}
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="" useGeneratedKeys="true">
+        insert into salaries(id, emp_no, salary, from_date, to_date)
+        values (#{id}, #{empNo}, #{salary}, #{fromDate}, #{toDate})
+    </insert>
+
+    <insert id="insertBatch" keyProperty="" useGeneratedKeys="true">
+        insert into salaries(id, emp_no, salary, from_date, to_date)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+        (#{entity.id}, #{entity.empNo}, #{entity.salary}, #{entity.fromDate}, #{entity.toDate})
+        </foreach>
+    </insert>
+
+    <insert id="insertOrUpdateBatch" keyProperty="" useGeneratedKeys="true">
+        insert into salaries(id, emp_no, salary, from_date, to_date)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.id}, #{entity.empNo}, #{entity.salary}, #{entity.fromDate}, #{entity.toDate})
+        </foreach>
+        on duplicate key update
+        id = values(id),
+        emp_no = values(emp_no),
+        salary = values(salary),
+        from_date = values(from_date),
+        to_date = values(to_date)
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update salaries
+        <set>
+            <if test="id != null">
+                id = #{id},
+            </if>
+            <if test="empNo != null">
+                emp_no = #{empNo},
+            </if>
+            <if test="salary != null">
+                salary = #{salary},
+            </if>
+            <if test="fromDate != null">
+                from_date = #{fromDate},
+            </if>
+            <if test="toDate != null">
+                to_date = #{toDate},
+            </if>
+        </set>
+        where  id= #{id}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete from salaries where id= #{id}
+    </delete>
+
+</mapper>
+

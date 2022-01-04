@@ -1,4 +1,4 @@
-package com.example.demo.entity;
+package com.example.demo.entity.test;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -14,7 +14,7 @@ import java.io.Serializable;
 
 @Getter
 @Setter
-public class TCustomer implements Serializable {
+public class Customer implements Serializable {
     private static final long serialVersionUID = -23726225018826148L;
     /**
      * 主键

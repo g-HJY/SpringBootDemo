@@ -1,6 +1,6 @@
 package com.example.demo.controller;
 
-import com.example.demo.entity.TCustomer;
+import com.example.demo.entity.test.Customer;
 import com.example.demo.service.TCustomerService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -32,7 +32,7 @@ public class TCustomerController {
      * @return 查询结果
      */
     @GetMapping
-    public ResponseEntity<Page<TCustomer>> queryByPage(TCustomer tCustomer, PageRequest pageRequest) {
+    public ResponseEntity<Page<Customer>> queryByPage(Customer tCustomer, PageRequest pageRequest) {
         return ResponseEntity.ok(this.tCustomerService.queryByPage(tCustomer, pageRequest));
     }
 
@@ -43,7 +43,7 @@ public class TCustomerController {
      * @return 单条数据
      */
     @GetMapping("/queryById")
-    public ResponseEntity<TCustomer> queryById(String id) {
+    public ResponseEntity<Customer> queryById(String id) {
         return ResponseEntity.ok(this.tCustomerService.queryById(id));
     }
 
@@ -54,7 +54,7 @@ public class TCustomerController {
      * @return 新增结果
      */
     @PostMapping
-    public ResponseEntity<TCustomer> add(TCustomer tCustomer) {
+    public ResponseEntity<Customer> add(Customer tCustomer) {
         return ResponseEntity.ok(this.tCustomerService.insert(tCustomer));
     }
 
@@ -65,7 +65,7 @@ public class TCustomerController {
      * @return 编辑结果
      */
     @PutMapping
-    public ResponseEntity<TCustomer> edit(TCustomer tCustomer) {
+    public ResponseEntity<Customer> edit(Customer tCustomer) {
         return ResponseEntity.ok(this.tCustomerService.update(tCustomer));
     }
 
