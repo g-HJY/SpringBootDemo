@@ -1,6 +1,6 @@
 # SpringBootDemo
 
-#### SpringBoot2.x 整合Mybatis,Redis,RabbitMQ,Thymeleaf等实现简单案例
+#### SpringBoot2.x 整合Mybatis,Redis,RabbitMQ,Thymeleaf,Swagger2等实现简单案例
 
 #### 一.项目运行要求
 完整测试本Demo接口需要安装如下工具：
