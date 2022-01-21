@@ -2,6 +2,8 @@ package com.example.demo.controller;
 
 import com.example.demo.entity.test.Customer;
 import com.example.demo.service.TCustomerService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.ResponseEntity;
@@ -15,6 +17,7 @@ import javax.annotation.Resource;
  * @author makejava
  * @since 2021-10-09 10:48:22
  */
+@Api(tags = "用户信息相关接口")
 @RestController
 @RequestMapping("/customer")
 public class TCustomerController {
@@ -43,6 +46,10 @@ public class TCustomerController {
      * @return 单条数据
      */
     @GetMapping("/queryById")
+    @ApiOperation(value = "根据用户id获取用户的信息",
+            notes = "查询数据库中的记录",
+            httpMethod = "GET",
+            response = ResponseEntity.class)
     public ResponseEntity<Customer> queryById(String id) {
         return ResponseEntity.ok(this.tCustomerService.queryById(id));
     }

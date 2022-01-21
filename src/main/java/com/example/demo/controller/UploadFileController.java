@@ -1,5 +1,6 @@
 package com.example.demo.controller;
 
+import io.swagger.annotations.Api;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
@@ -13,6 +14,9 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 
+
+
+@Api(tags = "文件操作相关接口")
 @Slf4j
 @Controller
 public class UploadFileController {

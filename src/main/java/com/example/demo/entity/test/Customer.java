@@ -1,5 +1,7 @@
 package com.example.demo.entity.test;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -11,7 +13,7 @@ import java.io.Serializable;
  * @author makejava
  * @since 2021-10-09 10:48:23
  */
-
+@ApiModel(value = "用户注册的实体")
 @Getter
 @Setter
 public class Customer implements Serializable {
@@ -19,6 +21,7 @@ public class Customer implements Serializable {
     /**
      * 主键
      */
+    @ApiModelProperty(name = "fcustomerid",notes = "用户id",dataType = "String",required = true)
     private String fcustomerid;
     /**
      * 部门id
@@ -27,6 +30,7 @@ public class Customer implements Serializable {
     /**
      * 用户名 （默认插入数据时以身份证号填充）
      */
+    @ApiModelProperty(name = "fcustomername",notes = "用户名",dataType = "String",required = true)
     private String fcustomername;
     /**
      * 密码 （默认插入时以身份证号后6位填充）
