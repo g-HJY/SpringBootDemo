@@ -1,13 +1,20 @@
 package com.example.demo.controller;
 
+import com.example.demo.ratelimit.LimitType;
+import com.example.demo.ratelimit.RateLimiter;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.redisson.Redisson;
 import org.redisson.api.RLock;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringBootVersion;
+import org.springframework.cache.CacheManager;
 import org.springframework.data.redis.core.RedisTemplate;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
 import java.text.SimpleDateFormat;
@@ -57,6 +64,9 @@ public class RedisController {
         }
     }
 
+    @Autowired
+    private CacheManager cacheManager;
+
     /**
      * Redis实现消息队列
      * @return
@@ -73,6 +83,25 @@ public class RedisController {
         redisTemplate.convertAndSend("channel21","Hello,I'm a message from redis.");
         String version = SpringBootVersion.getVersion();
         map.put("version",version);
+        System.out.println("CacheManager type : " + cacheManager.getClass());
+        return map;
+    }
+
+
+    /**
+     * Redis以注解方式实现接口限流
+     * @return
+     */
+    @ApiOperation(value = "Redis实现接口限流",
+            notes = "Redis实现接口限流",
+            httpMethod = "GET",
+            response = Map.class)
+    @GetMapping("/rateLimit")
+    @RateLimiter(time = 5,count = 3,limitType = LimitType.IP)
+    public Map rateLimit(){
+        Map map = new HashMap<>();
+        map.put("time", new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()));
+        map.put("desc","被限流接口");
         return map;
     }
 

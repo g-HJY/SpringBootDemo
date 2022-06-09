@@ -3,6 +3,7 @@ package com.example.demo.service.impl;
 import com.example.demo.dao.test.TCustomerDao;
 import com.example.demo.entity.test.Customer;
 import com.example.demo.service.TCustomerService;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
@@ -33,7 +34,7 @@ public class TCustomerServiceImpl implements TCustomerService {
      *         key：指定方法执行返回值的key，该属性是Spring用的，不写也有默认值
      *         value:表示存入redis数据库的key
      */
-    //@Cacheable(value="findCustomerId", key="'account.findCustomerId'")
+    @Cacheable(value="findCustomerId", key="'account.findCustomerId'")
     public Customer queryById(String fcustomerid) {
         return this.tCustomerDao.queryById(fcustomerid);
     }

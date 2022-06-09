@@ -1,0 +1,3 @@
+测试Kafka消息队列功能
+需要先安装Zookeeper和Kafka，安装成功后先启动Zookeeper，后启动Kafka
+具体教程可参考：https://blog.csdn.net/z1790424577/article/details/122832587
