@@ -1,6 +1,6 @@
 # SpringBootDemo
 
-#### SpringBoot2.x 整合Mybatis,Redis(含分布式锁实现/接口限流实现),消息队列功能实现(RabbitMQ/Kafka),Thymeleaf,Swagger2等简单案例
+#### SpringBoot2.x 整合Mybatis,Redis(含分布式锁实现/接口限流实现),Shiro(权限安全框架),消息队列功能实现(RabbitMQ/Kafka),Thymeleaf,Swagger2等简单案例
 
 #### 一.项目运行要求
 完整测试本Demo所有功能接口需要安装如下工具：
