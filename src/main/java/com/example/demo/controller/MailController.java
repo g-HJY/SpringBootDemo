@@ -20,13 +20,16 @@ public class MailController {
     @ApiOperation(value = "发送邮件",notes = "发送邮件")
     @RequestMapping(value = "/sendMail",method = {RequestMethod.GET,RequestMethod.POST})
     public String sendMail() {
-        SimpleMailMessage message = new SimpleMailMessage();
-        message.setFrom("493306620@qq.com");
-        message.setTo("493306620@qq.com");
-        message.setSubject("主题：简单邮件");
-        message.setText("测试邮件内容");
+        for (int i = 0; i < 4; i++) {
+            SimpleMailMessage message = new SimpleMailMessage();
+            message.setFrom("493306620@qq.com");
+            message.setTo("493306620@qq.com");
+            message.setSubject("主题：简单邮件");
+            message.setText("测试邮件内容");
 
-        mailSender.send(message);
+            mailSender.send(message);
+        }
+
         return "Send mai success";
     }
 }

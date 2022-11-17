@@ -15,7 +15,11 @@ public class MyKafkaController {
 
     @RequestMapping("/send")
     public String sendMessage(){
-        kafkaTemplate.send(TOPIC_NAME,0,"key","this is a message!");
+        try {
+            kafkaTemplate.send(TOPIC_NAME,0,"key","this is a message!");
+        } catch (Exception e) {
+            return e.getMessage();
+        }
         return "send success!";
     }
 }

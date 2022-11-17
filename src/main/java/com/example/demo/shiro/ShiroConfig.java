@@ -49,8 +49,8 @@ public class ShiroConfig {
         //对所有用户认证
         map.put("/**", "authc");
 
-        //这样以后请求路径中含有/add都能放行，不会再受/login的拦截。
-        //map.put("/add/**", "anon");
+        //这样以后请求路径中含有/msg都能放行，不会再受/login的拦截。
+        map.put("/msg/**", "anon");//测试Kafka，所以Kafka /msg/send接口放过拦截
 
         //登录
         shiroFilterFactoryBean.setLoginUrl("/login");
